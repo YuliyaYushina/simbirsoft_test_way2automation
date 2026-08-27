@@ -27,7 +27,7 @@ public class LoggedInPage extends BasePage {
      * Переход на страницу Authorization (разлогинивание)
      * @return страница Authorization
      */
-    public AuthorizationPage selectLogout() {
+    public AuthorizationPage clickLogout() {
         webDriverWait.until(ExpectedConditions.visibilityOf(logout)).click();
         return new AuthorizationPage(webDriver, webDriverWait);
     }

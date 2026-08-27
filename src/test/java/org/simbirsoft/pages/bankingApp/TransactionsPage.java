@@ -34,7 +34,7 @@ public class TransactionsPage extends BasePage {
     /**
      * Возвращение на страницу Banking App
      */
-    public void selectHomeButton() {
+    public void returnBankingApp() {
         homeButton.click();
         new BankingAppPage(webDriver, webDriverWait);
     }
@@ -42,7 +42,7 @@ public class TransactionsPage extends BasePage {
     /**
      * Очистка списка транзакций
      */
-    public void selectResetButton() {
+    public void clickResetButton() {
         resetButton.click();
     }
 
@@ -50,7 +50,7 @@ public class TransactionsPage extends BasePage {
      * Возвращение на страницу Customer
      * @return страница Customer
      */
-    public CustomerPage selectBackButton() {
+    public CustomerPage returnCustomerPage() {
         waitHelper.waitForClickable(backButton).click();
         return new CustomerPage(webDriver, webDriverWait);
     }

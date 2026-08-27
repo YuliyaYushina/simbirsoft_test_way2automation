@@ -27,28 +27,25 @@ public class ContactPage extends BasePage {
 
     /**
      * Получение email на странице Contact
-     * @param email email
      * @return строка email
      */
-    public String getActualEmail(WebElement email) {
+    public String getActualEmail() {
         return email.getText();
     }
 
     /**
      * Получение телефона на странице Contact
-     * @param phone телефон
      * @return строка телефона
      */
-    public String getActualPhone(WebElement phone) {
+    public String getActualPhone() {
         return phone.getText();
     }
 
     /**
      * Получение вебсайта на странице Contact
-     * @param website вебсайт
      * @return строка вебсайта
      */
-    public String getActualWebsite(WebElement website) {
+    public String getActualWebsite() {
         return website.getText();
     }
 }

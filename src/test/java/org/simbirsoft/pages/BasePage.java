@@ -49,7 +49,7 @@ public class BasePage {
      * @param string значение для заполнения
      * @param element поле
      */
-    public void sendKeys(String string, WebElement element) {
+    public void sendKeys( WebElement element, String string) {
         element.clear();
         element.sendKeys(string);
     }

@@ -68,21 +68,21 @@ public class BankManagerLoginPage extends BasePage {
     /**
      * Выбор раздела Добавление покупателя
      */
-    public void selectAddCustomer() {
+    public void clickAddCustomer() {
         waitHelper.waitForClickable(addCustomer).click();
     }
 
     /**
      * Нажатие на кнопку Добавление покупателя
      */
-    public void selectAddCustomerButton() {
+    public void clickAddCustomerButton() {
         addCustomerButton.click();
     }
 
     /**
      * Выбор раздела Открытие аккаунта покупателя
      */
-    public void selectOpenAccount() {
+    public void clickOpenAccount() {
         openAccount.click();
     }
 
@@ -106,29 +106,29 @@ public class BankManagerLoginPage extends BasePage {
     /**
      * Нажатие на кнопку Process
      */
-    public void selectProcess() {
+    public void clickProcess() {
         process.click();
     }
 
     /**
      * Возврат на страницу Banking App
      */
-    public void selectHomeButton() {
+    public BankingAppPage returnBankingApp() {
         homeButton.click();
-        new BankingAppPage(webDriver, webDriverWait);
+        return new BankingAppPage(webDriver, webDriverWait);
     }
 
     /**
      * Выбор категории Покупатели
      */
-    public void selectCustomerButton() {
+    public void clickCustomerButton() {
         customerButton.click();
     }
 
     /**
      * Удаление покупателя
      */
-    public void selectDeleteButton() {
+    public void clickDeleteButton() {
         deleteButton.click();
     }
 
@@ -142,5 +142,36 @@ public class BankManagerLoginPage extends BasePage {
                 .map(element -> element.findElement(By.xpath("./td[1]")).getText())
                 .toList();
         return firstNamesList;
+    }
+
+    /**
+     * Добавление нового покупателя
+     * @param FIRST_NAME имя покупателя
+     * @param LAST_NAME фамилия покупателя
+     * @param POST_CODE индекс покупателя
+     */
+    public void addCustomer(String FIRST_NAME, String LAST_NAME, String POST_CODE) {
+        clickAddCustomer();
+
+        //Заполнение полей
+        waitHelper.waitForVisibility(firstName);
+        sendKeys(firstName, FIRST_NAME);
+        sendKeys(lastName, LAST_NAME);
+        sendKeys(postCode, POST_CODE);
+
+        clickAddCustomerButton();
+    }
+
+    /**
+     * Открытие аккаунта покупателя
+     * @param customer имя и фамилия покупателя
+     */
+    public void openAccountCustomer(String customer, String currency) {
+        clickOpenAccount();
+        waitHelper.waitForVisibility(customerSelect);
+
+        selectCustomerSelect(customer);
+        selectCurrency(currency);
+        clickProcess();
     }
 }

@@ -3,14 +3,13 @@ package org.simbirsoft.tests;
 import org.simbirsoft.helper.ParameterProvider;
 import org.simbirsoft.pages.authorization.AuthorizationPage;
 import org.simbirsoft.pages.authorization.LoggedInPage;
-import org.simbirsoft.tests.base.BaseMethodTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import static org.testng.Assert.assertEquals;
 
-public class AuthorizationTest extends BaseMethodTest {
+public class AuthorizationTest extends BaseTest {
 
     @BeforeMethod
     public void openUrl() {
@@ -35,19 +34,16 @@ public class AuthorizationTest extends BaseMethodTest {
         AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
 
         //Заполнение формы авторизации
-        authorizationPage.getWaitHelper().waitForVisibility(authorizationPage.getUsername());
+        waitHelper.waitForVisibility(authorizationPage.getUsername());
 
-        authorizationPage.sendKeys(ParameterProvider.get("username"), authorizationPage.getUsername());
-        authorizationPage.sendKeys(ParameterProvider.get("password"), authorizationPage.getPassword());
-        authorizationPage.sendKeys(ParameterProvider.get("username"), authorizationPage.getUsername2());
+        authorizationPage.auth(ParameterProvider.get("username"), ParameterProvider.get("password"));
 
-        LoggedInPage loggedInPage = authorizationPage.selectLoggedIn();
+        LoggedInPage loggedInPage = authorizationPage.goToLoggedIn();
+        waitHelper.waitForVisibility(loggedInPage.getLoggedIn());
+
         String expectedLogIn = "You're logged in!!";
-
-        loggedInPage.getWaitHelper().waitForVisibility(loggedInPage.getLoggedIn());
         String actualLogIn = loggedInPage.getLoggedIn().getText();
-        assertEquals(actualLogIn, expectedLogIn,
-                "Текст сообщения об успешном входе не совпадает!");
+        assertEquals(actualLogIn, expectedLogIn, "Текст сообщения об успешном входе не совпадает!");
     }
 
     @Test(description = "Проверка ошибки авторизации")
@@ -60,17 +56,14 @@ public class AuthorizationTest extends BaseMethodTest {
         //Заполнение формы авторизации
         authorizationPage.getWaitHelper().waitForVisibility(authorizationPage.getUsername());
 
-        authorizationPage.sendKeys(incorrectUserName, authorizationPage.getUsername());
-        authorizationPage.sendKeys(incorrectPassword, authorizationPage.getPassword());
-        authorizationPage.sendKeys(incorrectUserName, authorizationPage.getUsername2());
+        authorizationPage.auth(incorrectUserName, incorrectPassword);
 
         authorizationPage.getLoginButton().click();
+        waitHelper.waitForVisibility(authorizationPage.getErrorMessage());
 
         String expectedTextMessage = "Username or password is incorrect";
-        authorizationPage.getWaitHelper().waitForVisibility(authorizationPage.getErrorMessage());
         String actualTextMessage = authorizationPage.getErrorMessage().getText();
-        assertEquals(actualTextMessage, expectedTextMessage,
-                "Текст ошибки не совпадает!");
+        assertEquals(actualTextMessage, expectedTextMessage, "Текст ошибки не совпадает!");
     }
 
     @Test(description = "Проверка успешного разлогирования")
@@ -80,12 +73,10 @@ public class AuthorizationTest extends BaseMethodTest {
         //Заполнение формы авторизации
         authorizationPage.getWaitHelper().waitForVisibility(authorizationPage.getUsername());
 
-        authorizationPage.sendKeys(ParameterProvider.get("username"), authorizationPage.getUsername());
-        authorizationPage.sendKeys(ParameterProvider.get("password"), authorizationPage.getPassword());
-        authorizationPage.sendKeys(ParameterProvider.get("username"), authorizationPage.getUsername2());
+        authorizationPage.auth(ParameterProvider.get("username"), ParameterProvider.get("password"));
 
-        LoggedInPage loggedInPage = authorizationPage.selectLoggedIn();
-        AuthorizationPage authorizationPageAfterLogout = loggedInPage.selectLogout();
+        LoggedInPage loggedInPage = authorizationPage.goToLoggedIn();
+        AuthorizationPage authorizationPageAfterLogout = loggedInPage.clickLogout();
 
         //Проверка элементов страницы
         SoftAssert softAssert = new SoftAssert();

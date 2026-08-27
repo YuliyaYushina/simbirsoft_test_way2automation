@@ -5,7 +5,6 @@ import org.simbirsoft.helper.ParameterProvider;
 import org.simbirsoft.pages.main.ContactPage;
 import org.simbirsoft.pages.main.LifetimeMembershipPage;
 import org.simbirsoft.pages.main.MainPage;
-import org.simbirsoft.tests.base.BaseMethodTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -14,7 +13,7 @@ import java.util.List;
 
 import static org.testng.AssertJUnit.assertTrue;
 
-public class MainPageTest extends BaseMethodTest {
+public class MainPageTest extends BaseTest {
 
     private final String EXPECTED_EMAIL = "trainer@way2automation.com";
     private final String EXPECTED_PHONE = "+91 9711111558";
@@ -53,16 +52,18 @@ public class MainPageTest extends BaseMethodTest {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);
         mainPage.closeFlyer();
 
-        ContactPage contactPage = mainPage.selectContactHeader();
+        ContactPage contactPage = mainPage.goToContactHeader();
+
+        //Получение контактов со страницы
+        String actualEmail = contactPage.getActualEmail();
+        String actualPhone = contactPage.getActualPhone();
+        String actualWebsite = contactPage.getActualWebsite();
 
         //Проверка контактов
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(contactPage.getActualEmail(contactPage.getEmail()), EXPECTED_EMAIL,
-                "Email не совпадает");
-        softAssert.assertEquals(contactPage.getActualPhone(contactPage.getPhone()), EXPECTED_PHONE,
-                "Номер телефона не сопадает");
-        softAssert.assertEquals(contactPage.getActualWebsite(contactPage.getWebsite()), EXPECTED_WEBSITE,
-                "Адрес вебсайта не совпадает");
+        softAssert.assertEquals(actualEmail, EXPECTED_EMAIL, "Email не совпадает");
+        softAssert.assertEquals(actualPhone, EXPECTED_PHONE, "Номер телефона не сопадает");
+        softAssert.assertEquals(actualWebsite, EXPECTED_WEBSITE, "Адрес вебсайта не совпадает");
         softAssert.assertAll();
 
     }
@@ -78,7 +79,8 @@ public class MainPageTest extends BaseMethodTest {
         //Проверка количества курсов в списке
         SoftAssert softAssert = new SoftAssert();
         final int EXPECTED_COUNT_COURSES = 5;
-        softAssert.assertEquals(mainPage.getListCourses().size(), EXPECTED_COUNT_COURSES,
+        int actualCountCourses = mainPage.getListCourses().size();
+        softAssert.assertEquals(actualCountCourses, EXPECTED_COUNT_COURSES,
                 "Количество курсов не совпадает");
 
         //Список ожидаемых курсов
@@ -94,15 +96,15 @@ public class MainPageTest extends BaseMethodTest {
                 .toList();
 
         softAssert.assertTrue(actualListCourses.contains(expectedCourse1),
-                "Курса " +  expectedCourse1 +" нет в списке");
+                String.format("Курса %s нет в списке", expectedCourse1));
         softAssert.assertTrue(actualListCourses.contains(expectedCourse2),
-                "Курса " + expectedCourse2 +" нет в списке");
+                String.format("Курса %s нет в списке", expectedCourse2));
         softAssert.assertTrue(actualListCourses.contains(expectedCourse3),
-                "Курса " + expectedCourse3 +" нет в списке");
+                String.format("Курса %s нет в списке", expectedCourse3));
         softAssert.assertTrue(actualListCourses.contains(expectedCourse4),
-                "Курса " + expectedCourse4 + " нет в списке");
+                String.format("Курса %s нет в списке", expectedCourse4));
         softAssert.assertTrue(actualListCourses.contains(expectedCourse5),
-                "Курса " + expectedCourse5 + " нет в списке");
+                String.format("Курса %s нет в списке", expectedCourse5));
         softAssert.assertAll();
     }
 
@@ -113,16 +115,18 @@ public class MainPageTest extends BaseMethodTest {
 
         mainPage.scrollToElement(mainPage.getFooter());
 
-        ContactPage contactPage = mainPage.selectContactFooter();
+        ContactPage contactPage = mainPage.goToContactFooter();
+
+        //Получение контактов со страницы
+        String actualEmail = contactPage.getActualEmail();
+        String actualPhone = contactPage.getActualPhone();
+        String actualWebsite = contactPage.getActualWebsite();
 
         //Проверка контактов
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(contactPage.getActualEmail(contactPage.getEmail()), EXPECTED_EMAIL,
-                "Email не совпадает");
-        softAssert.assertEquals(contactPage.getActualPhone(contactPage.getPhone()), EXPECTED_PHONE,
-                "Номер телефона не сопадает");
-        softAssert.assertEquals(contactPage.getActualWebsite(contactPage.getWebsite()), EXPECTED_WEBSITE,
-                "Адрес вебсайта не совпадает");
+        softAssert.assertEquals(actualEmail, EXPECTED_EMAIL, "Email не совпадает");
+        softAssert.assertEquals(actualPhone, EXPECTED_PHONE, "Номер телефона не сопадает");
+        softAssert.assertEquals(actualWebsite, EXPECTED_WEBSITE, "Адрес вебсайта не совпадает");
         softAssert.assertAll();
     }
 
@@ -143,9 +147,9 @@ public class MainPageTest extends BaseMethodTest {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);
         mainPage.closeFlyer();
 
-        LifetimeMembershipPage lifetimeMembershipPage = mainPage.selectLifetimeMembershipPage();
+        LifetimeMembershipPage lifetimeMembershipPage = mainPage.goToLifetimeMembershipPage();
 
-        lifetimeMembershipPage.getWaitHelper().waitForUrlContains("lifetime-membership-club");
+        waitHelper.waitForUrlContains("lifetime-membership-club");
 
         //Проверка ссылки на страницу
         SoftAssert softAssert = new SoftAssert();
@@ -155,7 +159,8 @@ public class MainPageTest extends BaseMethodTest {
 
         //Проверка заголовка
         String expectedHeaderPage = "The Lifetime Membership Club";
-        softAssert.assertEquals(lifetimeMembershipPage.getHeaderPage().getText(), expectedHeaderPage, "Заголовок не совпадает");
+        String actualHeaderPage = lifetimeMembershipPage.getHeaderPage().getText();
+        softAssert.assertEquals(actualHeaderPage, expectedHeaderPage, "Заголовок не совпадает");
         softAssert.assertAll();
     }
 }

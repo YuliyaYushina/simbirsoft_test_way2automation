@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.simbirsoft.helper.ParameterProvider;
 import org.simbirsoft.pages.BasePage;
 
 @Getter
@@ -36,8 +37,19 @@ public class AuthorizationPage extends BasePage {
      * Переход на страницу Logged in
      * @return страница Logged in
      */
-    public LoggedInPage selectLoggedIn() {
+    public LoggedInPage goToLoggedIn() {
         webDriverWait.until(ExpectedConditions.visibilityOf(loginButton)).click();
         return new LoggedInPage(webDriver, webDriverWait);
+    }
+
+    /**
+     * Заполнение полей для авторизации на странице Authorization
+     * @param login значение userName
+     * @param password значение password
+     */
+    public void auth(String login, String password) {
+        sendKeys(username, login);
+        sendKeys(this.password, password);
+        sendKeys(username2, login);
     }
 }

@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.simbirsoft.pages.BasePage;
 
@@ -67,7 +66,7 @@ public class MainPage extends BasePage {
      * Переход на страницу Contact из блока навагиции
      * @return страница Contact
      */
-    public ContactPage selectContactHeader() {
+    public ContactPage goToContactHeader() {
         waitHelper.waitForVisibility(contactHeader).click();
         return new ContactPage(webDriver, webDriverWait);
     }
@@ -76,7 +75,7 @@ public class MainPage extends BasePage {
      * Переход на страницу Contact из блока футера
      * @return страница Contact
      */
-    public ContactPage selectContactFooter() {
+    public ContactPage goToContactFooter() {
         waitHelper.waitForVisibility(contactFooter);
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", contactFooter);
         return new ContactPage(webDriver, webDriverWait);
@@ -86,7 +85,7 @@ public class MainPage extends BasePage {
      * Переход на страницу Lifetime Membership из блока навигации
      * @return страница Lifetime Membership
      */
-    public LifetimeMembershipPage selectLifetimeMembershipPage() {
+    public LifetimeMembershipPage goToLifetimeMembershipPage() {
         waitHelper.waitForVisibility(lifetimeMembership).click();
         return new LifetimeMembershipPage(webDriver, webDriverWait);
     }

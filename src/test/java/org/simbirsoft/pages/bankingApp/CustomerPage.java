@@ -57,14 +57,14 @@ public class CustomerPage extends BasePage {
     /**
      * Выбор раздела Депозит
      */
-    public void selectDeposit() {
+    public void goToDeposit() {
         deposit.click();
     }
 
     /**
      * Подтверждение депозита
      */
-    public void selectDepositAmount() {
+    public void clickDepositAmount() {
         depositButton.click();
     }
 
@@ -72,7 +72,7 @@ public class CustomerPage extends BasePage {
      * Переход в раздел Транзакции
      * @return страница Транзакции
      */
-    public TransactionsPage selectTransactions() {
+    public TransactionsPage goToTransactions() {
         transactionButton.click();
         return new TransactionsPage(webDriver, webDriverWait);
     }
@@ -80,7 +80,7 @@ public class CustomerPage extends BasePage {
     /**
      * Выбор раздела Вывод средст
      */
-    public void selectWithdrawl() {
+    public void goToWithdrawl() {
         withdrawl.click();
     }
 
@@ -89,7 +89,7 @@ public class CustomerPage extends BasePage {
      * @param balance баланс покупателя
      * @return случайное число
      */
-    public String randomAmount(Integer balance) {
+    public String getRandomAmount(Integer balance) {
         Random random = new Random();
         Integer randomAmount = random.nextInt(1, balance);
         return randomAmount.toString();
@@ -98,15 +98,40 @@ public class CustomerPage extends BasePage {
     /**
      * Потверждение вывода средств
      */
-    public void selectWithdrawButton() {
+    public void clickWithdrawButton() {
         withdrawButton.click();
     }
 
     /**
      * Возвращение на страницу Banking App
      */
-    public void selectHomeButton() {
+    public void returnBankingApp() {
         homeButton.click();
         new BankingAppPage(webDriver, webDriverWait);
+    }
+
+    /**
+     * Пополнение счета покупателя
+     * @param inputAmount сумма пополнения
+     */
+    public void addDepositCustomer(String inputAmount) {
+        goToDeposit();
+
+        waitHelper.waitForVisibility(amount);
+        sendKeys(amount, inputAmount);
+        clickDepositAmount();
+    }
+
+    /**
+     * Снятие средств со счета покупателя
+     * @param randomAmount сумма снятия
+     */
+    public void withDrawAmountCustomer(String randomAmount) {
+        goToWithdrawl();
+
+        waitHelper.waitForVisibility(inputAmountForWithdrawl);
+        sendKeys(inputAmountForWithdrawl, randomAmount);
+
+        clickWithdrawButton();
     }
 }

@@ -1,5 +1,6 @@
 package org.simbirsoft.pages.bankingApp;
 
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.simbirsoft.pages.BasePage;
 
+@Getter
 public class BankingAppPage extends BasePage {
 
     @FindBy(linkText = "Sample Form")
@@ -27,7 +29,7 @@ public class BankingAppPage extends BasePage {
      * Переход в раздел Sample Form
      * @return страница Sample Form
      */
-    public SampleFormPage selectSampleForm() {
+    public SampleFormPage goToSampleForm() {
         waitHelper.waitForClickable(sampleForm).click();
         return new SampleFormPage(webDriver, webDriverWait);
     }
@@ -36,7 +38,7 @@ public class BankingAppPage extends BasePage {
      * Переход в раздел Bank Manager Login
      * @return страница Bank Manager Login
      */
-    public BankManagerLoginPage selectBankManagerLogin() {
+    public BankManagerLoginPage goToBankManagerLogin() {
         waitHelper.waitForClickable(bankManagerLogin).click();
         return new BankManagerLoginPage(webDriver, webDriverWait);
     }
@@ -45,7 +47,7 @@ public class BankingAppPage extends BasePage {
      * Переход в раздел Customer Login
      * @return страница Customer Login
      */
-    public CustomerLoginPage selectCustomerLogin() {
+    public CustomerLoginPage goToCustomerLogin() {
         waitHelper.waitForClickable(customerLogin).click();
         return new CustomerLoginPage(webDriver, webDriverWait);
     }
