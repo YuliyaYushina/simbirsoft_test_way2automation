@@ -1,5 +1,10 @@
 package org.simbirsoft.tests;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.Story;
+import io.qameta.allure.SeverityLevel;
 import org.openqa.selenium.WebElement;
 import org.simbirsoft.helper.ParameterProvider;
 import org.simbirsoft.pages.main.ContactPage;
@@ -13,6 +18,8 @@ import java.util.List;
 
 import static org.testng.AssertJUnit.assertTrue;
 
+@Epic("Главная страница сайта")
+@Feature("Проверка содержания главной страницы")
 public class MainPageTest extends BaseTest {
 
     private final String EXPECTED_EMAIL = "trainer@way2automation.com";
@@ -25,6 +32,8 @@ public class MainPageTest extends BaseTest {
     }
 
     @Test(description = "Проверка открытия страницы и отображения основных элементов")
+    @Story("Проверка отображения основных элементов на главной странице")
+    @Severity(SeverityLevel.BLOCKER)
     void openMainPageTest() {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);
         mainPage.closeFlyer();
@@ -48,6 +57,8 @@ public class MainPageTest extends BaseTest {
     }
 
     @Test(description = "Проверка перехода на страницу Contact из блока навигации и отображения email, телефона и вебсайта")
+    @Story("Переход на страницу контактов")
+    @Severity(SeverityLevel.MINOR)
     void checkContactHeaderTest() {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);
         mainPage.closeFlyer();
@@ -69,6 +80,8 @@ public class MainPageTest extends BaseTest {
     }
 
     @Test(description = "Проверка отображения списка курсов в футере")
+    @Story("Отображение списка курсов")
+    @Severity(SeverityLevel.MINOR)
     void checkListCoursesTest() {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);
         mainPage.closeFlyer();
@@ -109,6 +122,8 @@ public class MainPageTest extends BaseTest {
     }
 
     @Test(description = "Проверка перехода на страницу Contact из футера и отображение email, телефона и веб-сайта")
+    @Story("Переход на страницу контактов")
+    @Severity(SeverityLevel.MINOR)
     void checkContactFooterTest() {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);
         mainPage.closeFlyer();
@@ -131,6 +146,8 @@ public class MainPageTest extends BaseTest {
     }
 
     @Test(description = "Проверка отображения меню навигации при прокрутке страницы")
+    @Story("Отображение меню навигации при прокрутке")
+    @Severity(SeverityLevel.MINOR)
     void checkNavigationAfterScrollTest() {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);
         mainPage.closeFlyer();
@@ -143,6 +160,8 @@ public class MainPageTest extends BaseTest {
     }
 
     @Test(description = "Проверка перехода на страницу Lifetime Membership из блока навигации")
+    @Story("Переход на страницу Lifetime Membership")
+    @Severity(SeverityLevel.NORMAL)
     void checkLifetimeMembershipNavigationTest() {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);
         mainPage.closeFlyer();

@@ -1,5 +1,6 @@
 package org.simbirsoft.pages.main;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
@@ -53,6 +54,7 @@ public class MainPage extends BasePage {
     /**
      * Закрытие всплывающего окна на главной странице
      */
+    @Step("Закрытие всплывающего окна на главной странице")
     public void closeFlyer() {
         try {
             waitHelper.waitForClickable(closeFlyer).click();
@@ -66,6 +68,7 @@ public class MainPage extends BasePage {
      * Переход на страницу Contact из блока навагиции
      * @return страница Contact
      */
+    @Step("Переход на страницу Contact из блока навагиции")
     public ContactPage goToContactHeader() {
         waitHelper.waitForVisibility(contactHeader).click();
         return new ContactPage(webDriver, webDriverWait);
@@ -75,6 +78,7 @@ public class MainPage extends BasePage {
      * Переход на страницу Contact из блока футера
      * @return страница Contact
      */
+    @Step("Переход на страницу Contact из блока футера")
     public ContactPage goToContactFooter() {
         waitHelper.waitForVisibility(contactFooter);
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].click();", contactFooter);
@@ -85,6 +89,7 @@ public class MainPage extends BasePage {
      * Переход на страницу Lifetime Membership из блока навигации
      * @return страница Lifetime Membership
      */
+    @Step("Переход на страницу Lifetime Membership из блока навигации")
     public LifetimeMembershipPage goToLifetimeMembershipPage() {
         waitHelper.waitForVisibility(lifetimeMembership).click();
         return new LifetimeMembershipPage(webDriver, webDriverWait);

@@ -1,5 +1,6 @@
 package org.simbirsoft.pages.bankingApp;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -53,6 +54,7 @@ public class SampleFormPage extends BasePage {
      * Выбор "Sports" в пункте "Hobbies"
      * @param shouldBeChecked true - если чекбокс должен быть отмечен, false - если отметку нужно снять.
      */
+    @Step("Выбор 'Sports' в пункте 'Hobbies'")
     public void selectSportsCheckbox(Boolean shouldBeChecked) {
         if (hobbiesSports.isSelected() != shouldBeChecked) {
             hobbiesSports.click();
@@ -62,6 +64,7 @@ public class SampleFormPage extends BasePage {
     /**
      * Выбора пола "male"
      */
+    @Step("Выбора пола 'male'")
     public void selectGenderMale() {
         Select select = new Select(gender);
         select.selectByValue("male");
@@ -73,6 +76,7 @@ public class SampleFormPage extends BasePage {
      * @param checkboxHobbies список элементов "Hobbies"
      * @return строка заполнения раздела о себе
      */
+    @Step("Заполнение раздела 'О себе'")
     public String writeAboutYourself(List<WebElement> checkboxHobbies) {
         String longestWord = "";
         for (WebElement checkboxHobby : checkboxHobbies) {
@@ -82,5 +86,4 @@ public class SampleFormPage extends BasePage {
         }
         return "Самое длинное слово из предложенных хобби - " + longestWord;
     }
-
 }

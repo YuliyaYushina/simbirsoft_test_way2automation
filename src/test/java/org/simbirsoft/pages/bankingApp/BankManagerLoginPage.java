@@ -1,5 +1,6 @@
 package org.simbirsoft.pages.bankingApp;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -68,6 +69,7 @@ public class BankManagerLoginPage extends BasePage {
     /**
      * Выбор раздела Добавление покупателя
      */
+    @Step("Выбор раздела Добавление покупателя")
     public void clickAddCustomer() {
         waitHelper.waitForClickable(addCustomer).click();
     }
@@ -75,6 +77,7 @@ public class BankManagerLoginPage extends BasePage {
     /**
      * Нажатие на кнопку Добавление покупателя
      */
+    @Step("Нажатие на кнопку Добавление покупателя")
     public void clickAddCustomerButton() {
         addCustomerButton.click();
     }
@@ -82,6 +85,7 @@ public class BankManagerLoginPage extends BasePage {
     /**
      * Выбор раздела Открытие аккаунта покупателя
      */
+    @Step("Выбор раздела Открытие аккаунта покупателя")
     public void clickOpenAccount() {
         openAccount.click();
     }
@@ -89,6 +93,7 @@ public class BankManagerLoginPage extends BasePage {
     /**
      * Выбор добаленного покупателя
      */
+    @Step("Выбор покупателя")
     public void selectCustomerSelect(String customer) {
         Select select = new Select(customerSelect);
         select.selectByVisibleText(customer);
@@ -98,6 +103,7 @@ public class BankManagerLoginPage extends BasePage {
      * Выбор валюты
      * @param currency валюта
      */
+    @Step("Выбор валюты")
     public void selectCurrency(String currency) {
         Select select = new Select(this.currency);
         select.selectByValue(currency);
@@ -106,6 +112,7 @@ public class BankManagerLoginPage extends BasePage {
     /**
      * Нажатие на кнопку Process
      */
+    @Step("Нажатие на кнопку Process")
     public void clickProcess() {
         process.click();
     }
@@ -113,6 +120,7 @@ public class BankManagerLoginPage extends BasePage {
     /**
      * Возврат на страницу Banking App
      */
+    @Step("Возврат на страницу Banking App")
     public BankingAppPage returnBankingApp() {
         homeButton.click();
         return new BankingAppPage(webDriver, webDriverWait);
@@ -121,6 +129,7 @@ public class BankManagerLoginPage extends BasePage {
     /**
      * Выбор категории Покупатели
      */
+    @Step("Выбор категории Customer")
     public void clickCustomerButton() {
         customerButton.click();
     }
@@ -128,15 +137,17 @@ public class BankManagerLoginPage extends BasePage {
     /**
      * Удаление покупателя
      */
+    @Step("Удаление покупателя")
     public void clickDeleteButton() {
         deleteButton.click();
     }
 
     /**
-     * Получение списка имен из списка
+     * Получение списка имен из списка покупателей
      * @param allRows список покупателей
      * @return список имен покупателей
      */
+    @Step("Получение списка имен из списка покупателей")
     public List<String> getStringFirstNames(List<WebElement> allRows) {
         List<String> firstNamesList = allRows.stream()
                 .map(element -> element.findElement(By.xpath("./td[1]")).getText())
@@ -150,6 +161,7 @@ public class BankManagerLoginPage extends BasePage {
      * @param LAST_NAME фамилия покупателя
      * @param POST_CODE индекс покупателя
      */
+    @Step("Добавление нового покупателя")
     public void addCustomer(String FIRST_NAME, String LAST_NAME, String POST_CODE) {
         clickAddCustomer();
 
@@ -166,6 +178,7 @@ public class BankManagerLoginPage extends BasePage {
      * Открытие аккаунта покупателя
      * @param customer имя и фамилия покупателя
      */
+    @Step("Открытие аккаунта покупателя")
     public void openAccountCustomer(String customer, String currency) {
         clickOpenAccount();
         waitHelper.waitForVisibility(customerSelect);

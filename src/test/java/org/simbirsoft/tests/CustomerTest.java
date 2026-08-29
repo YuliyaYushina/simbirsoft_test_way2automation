@@ -1,6 +1,7 @@
 package org.simbirsoft.tests;
 
 import com.google.common.util.concurrent.Uninterruptibles;
+import io.qameta.allure.*;
 import org.openqa.selenium.WebElement;
 import org.simbirsoft.helper.ParameterProvider;
 import org.simbirsoft.pages.bankingApp.*;
@@ -11,8 +12,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.*;
-import static org.testng.AssertJUnit.assertEquals;
 
+@Epic("Банковское приложение")
+@Feature("Проверка функционала пользователя")
 public class CustomerTest extends BaseTest {
 
     private final String FIRST_NAME = "Ivan";
@@ -30,6 +32,8 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка Sample Form")
+    @Story("Проверка Sample Form")
+    @Severity(SeverityLevel.NORMAL)
     void checkSampleFormTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
 
@@ -51,11 +55,13 @@ public class CustomerTest extends BaseTest {
 
         String expectedSuccessMessage = "User registered successfully!";
         String actualSuccessMessage = sampleFormPage.getSuccessMessage().getText();
-        assertEquals("Текст сообщения об успешной регистрации не совпадает",
-               actualSuccessMessage, expectedSuccessMessage);
+        assertEquals(actualSuccessMessage, expectedSuccessMessage,
+                "Текст сообщения об успешной регистрации не совпадает");
     }
 
     @Test(description = "Проверка Bank Manager Login")
+    @Story("Проверка создания покупателя")
+    @Severity(SeverityLevel.BLOCKER)
     void checkBankManagerLoginTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
 
@@ -71,6 +77,8 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка успешного пополнения счета")
+    @Story("Успешное пополнение счета")
+    @Severity(SeverityLevel.CRITICAL)
     void checkSuccessfulDepositTest() throws InterruptedException {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
         //Создание покупателя и открытие аккаунта
@@ -89,15 +97,15 @@ public class CustomerTest extends BaseTest {
         waitHelper.waitForVisibility(customerPage.getNameUser());
         String expectedGreetingText = "Welcome Ivan Ivanov !!";
         String actualGreetingText = String.format("Welcome %s !!", customerPage.getNameUser().getText());
-        assertEquals("Текст приветствия не совпадает", actualGreetingText, expectedGreetingText);
+        assertEquals(actualGreetingText, expectedGreetingText, "Текст приветствия не совпадает");
 
         customerPage.addDepositCustomer(INPUT_AMOUNT);
 
         //Проверка сообщения об успешном поступлении
         String expectedStatusMessage = "Deposit Successful";
         String actualStatusMessage = waitHelper.waitForVisibility(customerPage.getStatusMessageForDeposit()).getText();
-        assertEquals("Тескт сообщения об успешном попоплнении счета не совпадает",
-                actualStatusMessage, expectedStatusMessage);
+        assertEquals(actualStatusMessage, expectedStatusMessage,
+                "Текст сообщения об успешном пополнении счета не совпадает");
 
         //Ожидание обновления транзакций в списке
         Uninterruptibles.sleepUninterruptibly(1, TimeUnit.SECONDS);
@@ -111,6 +119,8 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка неуспешного пополнения счета")
+    @Story("Пополнение счета на 0")
+    @Severity(SeverityLevel.NORMAL)
     void checkUnsuccessfulDepositTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
         //Создание покупателя и открытие аккаунта
@@ -152,6 +162,8 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка успешного снятия средств")
+    @Story("Успешное снятие средств")
+    @Severity(SeverityLevel.CRITICAL)
     void checkSuccessfulWithdrawlTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
         //Создание покупателя и открытие аккаунта
@@ -184,8 +196,8 @@ public class CustomerTest extends BaseTest {
 
         String expectedStatusMessageForWithdraw = "Transaction successful";
         String actualStatusMessageForWithdraw = waitHelper.waitForVisibility(customerPage.getStatusMessageForWithdraw()).getText();
-        assertEquals("Тескт сообщения об успешном снятии средств не совпадает",
-                expectedStatusMessageForWithdraw, actualStatusMessageForWithdraw);
+        assertEquals(actualStatusMessageForWithdraw, expectedStatusMessageForWithdraw,
+                "Текст сообщения об успешном снятии средств не совпадает");
 
         //Ожидание обновления транзакций в списке
         Uninterruptibles.sleepUninterruptibly(2, TimeUnit.SECONDS);
@@ -199,6 +211,8 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка неуспешного снятия средств")
+    @Story("Неуспешное снятие средств")
+    @Severity(SeverityLevel.NORMAL)
     void checkUnsuccessfulWithdrawlTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
         //Создание покупателя и открытие аккаунта
@@ -228,7 +242,7 @@ public class CustomerTest extends BaseTest {
 
         String expectedStatusMessage = "Transaction Failed. You can not withdraw amount more than the balance.";
         String actualStatusMessage = waitHelper.waitForVisibility(customerPage.getStatusMessageForWithdraw()).getText();
-        assertEquals("Тескт сообщения об ошибке снятии средств не совпадает",
+        assertEquals("Текст сообщения об ошибке снятии средств не совпадает",
                 actualStatusMessage, expectedStatusMessage);
 
         //Ожидание обновления транзакций в списке
@@ -243,6 +257,8 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка подсчета баланса")
+    @Story("Подсчет баланса")
+    @Severity(SeverityLevel.CRITICAL)
     void checkBalanceTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
         //Создание покупателя и открытие аккаунта
@@ -290,11 +306,13 @@ public class CustomerTest extends BaseTest {
 
         Integer actualBalance = actualCredit - actualDebit;
 
-        assertEquals("Баланс в таблице не совпадает с балансов в шапке страницы",
-                actualBalance, expectedBalance);
+        assertEquals(actualBalance, expectedBalance,
+                "Баланс в таблице не совпадает с балансов в шапке страницы");
     }
 
     @Test(description = "Проверка снятия оставшихся средств")
+    @Story("Снятие всех средств")
+    @Severity(SeverityLevel.NORMAL)
     void checkWithdrawAllBalanceTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
         //Создание покупателя и открытие аккаунта
@@ -331,16 +349,18 @@ public class CustomerTest extends BaseTest {
         customerPage.withDrawAmountCustomer(balanceBeforeWithdraw);
         String expectedStatusMessageForWithdraw = "Transaction successful";
         String actualStatusMessageForWithdraw = waitHelper.waitForVisibility(customerPage.getStatusMessageForWithdraw()).getText();
-        assertEquals("Тескт сообщения об успешном снятии средств не совпадает",
-                expectedStatusMessageForWithdraw, actualStatusMessageForWithdraw);
+        assertEquals(actualStatusMessageForWithdraw, expectedStatusMessageForWithdraw,
+                "Текст сообщения об успешном снятии средств не совпадает");
 
         String balanceAfterWithdraw = customerPage.getBalanceValue().getText();
 
-        assertEquals("Баланс после снятия оставшихся средст не равен 0",
-                balanceAfterWithdraw, "0");
+        assertEquals(balanceAfterWithdraw, "0",
+                "Баланс после снятия оставшихся средств не равен 0");
     }
 
     @Test(description = "Проверка очистки списка транзакций")
+    @Story("Очистка списка транзакций")
+    @Severity(SeverityLevel.NORMAL)
     void checkResetListTransactionsTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
         //Создание покупателя и открытие аккаунта
@@ -384,8 +404,8 @@ public class CustomerTest extends BaseTest {
         waitHelper.waitForTableToBeEmpty(transactionsPage.getRows());
         int transactionsAfterReset = transactionsPage.getRows().size();
 
-        assertEquals("Список транзакций не пуст после нажатия Reset",
-                0, transactionsAfterReset);
+        assertEquals(0, transactionsAfterReset,
+                "Список транзакций не пуст после нажатия Reset");
         assertNotEquals(transactionsBeforeReset, transactionsAfterReset,
                 "Количество транзакций не изменилось");
 
@@ -393,11 +413,13 @@ public class CustomerTest extends BaseTest {
 
         //Проверка баланса
         String actualBalance = waitHelper.waitForVisibility(customerPage.getBalanceValue()).getText();
-        assertEquals("Баланс после очистки транзакций должен быть 0",
-                actualBalance, "0");
+        assertEquals(actualBalance, "0",
+                "Баланс после очистки транзакций должен быть 0");
     }
 
-    @Test(description = "Проверка удаления созданного покупателя", priority = 10)
+    @Test(description = "Проверка удаления созданного покупателя")
+    @Story("Удаление покупателя")
+    @Severity(SeverityLevel.NORMAL)
     void checkDeleteCustomerTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
         //Создание покупателя и открытие аккаунта
@@ -416,8 +438,8 @@ public class CustomerTest extends BaseTest {
         waitHelper.waitForRowNotToBeEmpty(bankManagerLoginPage.getFirstRowCells());
         String actualFirstName = bankManagerLoginPage.getFirstRowCells().get(0).getText();
 
-        assertEquals("Имя покупателя не совпадает",
-                actualFirstName, FIRST_NAME);
+        assertEquals(actualFirstName, FIRST_NAME,
+                "Имя покупателя не совпадает");
 
         //Удаление покупателя из списка
         WebElement rowToBeDeleted = bankManagerLoginPage.getAllRows().get(0);

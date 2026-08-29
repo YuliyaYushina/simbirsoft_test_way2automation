@@ -1,6 +1,7 @@
 package org.simbirsoft.tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -56,6 +57,7 @@ public class BaseTest {
      * Проверка всплывающего окна
      * @param expectedText текст, который должен содержаться в алерте
      */
+    @Step("Проверка алерта")
     public void checkAlert(String expectedText) {
         try {
             Alert alert = webDriverWait.until(ExpectedConditions.alertIsPresent());
