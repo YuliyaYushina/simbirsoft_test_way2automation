@@ -54,4 +54,17 @@ public class AuthorizationPage extends BasePage {
         sendKeys(this.password, password);
         sendKeys(username2, login);
     }
+
+    /**
+     * Заполнение полей для авторизации на странице Authorization
+     * @param username значение userName
+     * @param password значение password
+     * @param username2 значение userName2
+     */
+    @Step("Заполнение полей для авторизации на странице")
+    public void auth(String username, String password, String username2) {
+        sendKeys(this.username, username);
+        sendKeys(this.password, password);
+        sendKeys(this.username2, username2);
+    }
 }

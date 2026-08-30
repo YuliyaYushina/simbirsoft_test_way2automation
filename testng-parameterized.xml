@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Parameterized Authorization Test Suite">
+    <test name="Parameterized Auth Tests">
+        <classes>
+            <class name="org.simbirsoft.tests.ParameterizedAuthorizationTest"/>
+        </classes>
+    </test>
+</suite>

@@ -63,7 +63,7 @@ public class AuthorizationTest extends BaseTest {
         String incorrectPassword = "incorrectpassword";
 
         //Заполнение формы авторизации
-        authorizationPage.getWaitHelper().waitForVisibility(authorizationPage.getUsername());
+        waitHelper.waitForVisibility(authorizationPage.getUsername());
 
         authorizationPage.auth(incorrectUserName, incorrectPassword);
 
