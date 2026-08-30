@@ -50,12 +50,17 @@
       <scope>compile</scope>
     </dependency>
 
-    <!-- Source: https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
     <dependency>
       <groupId>io.qameta.allure</groupId>
       <artifactId>allure-testng</artifactId>
-      <version>2.34.0</version>
+      <version>2.27.0</version>
       <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>ru.yandex.qatools.ashot</groupId>
+      <artifactId>ashot</artifactId>
+      <version>1.5.4</version>
     </dependency>
   </dependencies>
 
@@ -81,9 +86,6 @@
         <groupId>io.qameta.allure</groupId>
         <artifactId>allure-maven</artifactId>
         <version>2.15.2</version>
-        <configuration>
-          <reportVersion>2.35.4</reportVersion>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
