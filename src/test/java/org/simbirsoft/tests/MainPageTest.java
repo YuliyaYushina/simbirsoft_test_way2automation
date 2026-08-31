@@ -57,7 +57,7 @@ public class MainPageTest extends BaseTest {
     }
 
     @Test(description = "Проверка перехода на страницу Contact из блока навигации и отображения email, телефона и вебсайта")
-    @Story("Переход на страницу контактов")
+    @Story("Проверка отображения основных элементов на главной странице")
     @Severity(SeverityLevel.MINOR)
     void checkContactHeaderTest() {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);
@@ -80,7 +80,7 @@ public class MainPageTest extends BaseTest {
     }
 
     @Test(description = "Проверка отображения списка курсов в футере")
-    @Story("Отображение списка курсов")
+    @Story("Проверка отображения основных элементов на главной странице")
     @Severity(SeverityLevel.MINOR)
     void checkListCoursesTest() {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);
@@ -122,7 +122,7 @@ public class MainPageTest extends BaseTest {
     }
 
     @Test(description = "Проверка перехода на страницу Contact из футера и отображение email, телефона и веб-сайта")
-    @Story("Переход на страницу контактов")
+    @Story("Проверка отображения основных элементов на главной странице")
     @Severity(SeverityLevel.MINOR)
     void checkContactFooterTest() {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);
@@ -146,7 +146,7 @@ public class MainPageTest extends BaseTest {
     }
 
     @Test(description = "Проверка отображения меню навигации при прокрутке страницы")
-    @Story("Отображение меню навигации при прокрутке")
+    @Story("Проверка отображения основных элементов на главной странице")
     @Severity(SeverityLevel.MINOR)
     void checkNavigationAfterScrollTest() {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);
@@ -160,7 +160,7 @@ public class MainPageTest extends BaseTest {
     }
 
     @Test(description = "Проверка перехода на страницу Lifetime Membership из блока навигации")
-    @Story("Переход на страницу Lifetime Membership")
+    @Story("Проверка отображения основных элементов на главной странице")
     @Severity(SeverityLevel.NORMAL)
     void checkLifetimeMembershipNavigationTest() {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);

@@ -19,8 +19,8 @@ public class FailedTest extends BaseTest {
         webDriver.get(ParameterProvider.get("base.url"));
     }
 
-    @Test(description = "Упавший тест для демонстрации скриншота")
-    @Story("Проверка отображения основных элементов на главной странице")
+    @Test(description = "Проверка отображения основных элементов на главной странице")
+    @Story("Падающий тест для демонстрации скриншота")
     @Severity(SeverityLevel.MINOR)
     void failedDisplayedTest() {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);
@@ -41,8 +41,8 @@ public class FailedTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test(description = "Упавший тест для демонстрации скриншота")
-    @Story("Отображение списка курсов")
+    @Test(description = "Проверка отображения списка курсов")
+    @Story("Падающий тест для демонстрации скриншота")
     @Severity(SeverityLevel.MINOR)
     void failedCoursesTest() {
         MainPage mainPage = new MainPage(webDriver, webDriverWait);

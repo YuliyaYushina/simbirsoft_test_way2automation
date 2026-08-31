@@ -32,7 +32,7 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка Sample Form")
-    @Story("Проверка Sample Form")
+    @Story("Управление покупателями")
     @Severity(SeverityLevel.NORMAL)
     void checkSampleFormTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
@@ -60,7 +60,7 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка Bank Manager Login")
-    @Story("Проверка создания покупателя")
+    @Story("Управление покупателями")
     @Severity(SeverityLevel.BLOCKER)
     void checkBankManagerLoginTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
@@ -77,7 +77,7 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка успешного пополнения счета")
-    @Story("Успешное пополнение счета")
+    @Story("Управление балансом и транзакциями")
     @Severity(SeverityLevel.CRITICAL)
     void checkSuccessfulDepositTest() throws InterruptedException {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
@@ -119,7 +119,7 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка неуспешного пополнения счета")
-    @Story("Пополнение счета на 0")
+    @Story("Управление балансом и транзакциями")
     @Severity(SeverityLevel.NORMAL)
     void checkUnsuccessfulDepositTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
@@ -162,7 +162,7 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка успешного снятия средств")
-    @Story("Успешное снятие средств")
+    @Story("Управление балансом и транзакциями")
     @Severity(SeverityLevel.CRITICAL)
     void checkSuccessfulWithdrawlTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
@@ -211,7 +211,7 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка неуспешного снятия средств")
-    @Story("Неуспешное снятие средств")
+    @Story("Управление балансом и транзакциями")
     @Severity(SeverityLevel.NORMAL)
     void checkUnsuccessfulWithdrawlTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
@@ -257,7 +257,7 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка подсчета баланса")
-    @Story("Подсчет баланса")
+    @Story("Управление балансом и транзакциями")
     @Severity(SeverityLevel.CRITICAL)
     void checkBalanceTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
@@ -311,7 +311,7 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка снятия оставшихся средств")
-    @Story("Снятие всех средств")
+    @Story("Управление балансом и транзакциями")
     @Severity(SeverityLevel.NORMAL)
     void checkWithdrawAllBalanceTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
@@ -359,7 +359,7 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка очистки списка транзакций")
-    @Story("Очистка списка транзакций")
+    @Story("Управление балансом и транзакциями")
     @Severity(SeverityLevel.NORMAL)
     void checkResetListTransactionsTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
@@ -418,7 +418,7 @@ public class CustomerTest extends BaseTest {
     }
 
     @Test(description = "Проверка удаления созданного покупателя")
-    @Story("Удаление покупателя")
+    @Story("Управление покупателями")
     @Severity(SeverityLevel.NORMAL)
     void checkDeleteCustomerTest() {
         BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);

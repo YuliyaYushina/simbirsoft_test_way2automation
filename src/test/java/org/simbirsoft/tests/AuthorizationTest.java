@@ -35,7 +35,7 @@ public class AuthorizationTest extends BaseTest {
     }
 
     @Test(description = "Проверка успешной авторизации")
-    @Story("Успешная авторизация")
+    @Story("Сценарии авторизации")
     @Severity(SeverityLevel.CRITICAL)
     void checkSuccessfulAuthorizationTest() {
         AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
@@ -54,7 +54,7 @@ public class AuthorizationTest extends BaseTest {
     }
 
     @Test(description = "Проверка ошибки авторизации")
-    @Story("Ошибка авторизации")
+    @Story("Сценарии авторизации")
     @Severity(SeverityLevel.NORMAL)
     void checkExceptionAuthorizationTest() {
         AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
@@ -76,7 +76,7 @@ public class AuthorizationTest extends BaseTest {
     }
 
     @Test(description = "Проверка успешного разлогирования")
-    @Story("Разлогинивание")
+    @Story("Сценарии авторизации")
     @Severity(SeverityLevel.CRITICAL)
     void checkLogoutTest() {
         AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
