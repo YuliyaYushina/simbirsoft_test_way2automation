@@ -1,6 +1,8 @@
 package org.simbirsoft.tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -11,10 +13,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.simbirsoft.helper.ParameterProvider;
 import org.simbirsoft.helper.WaitHelper;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.asserts.SoftAssert;
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,9 +54,26 @@ public class BaseTest {
     }
 
     @AfterMethod
-    protected void quitDriver() {
+    protected void quitDriver(ITestResult result) {
         if (webDriver != null) {
+            if (result.getStatus() == ITestResult.FAILURE) {
+                saveScreenshot();
+            }
             webDriver.quit();
+        }
+    }
+
+    @Attachment(value = "Скриншот при падении теста", type = "image/png")
+    public byte[] saveScreenshot() {
+        Screenshot screenshot = new AShot().takeScreenshot(webDriver);
+        BufferedImage image = screenshot.getImage();
+
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            ImageIO.write(image, "png", baos);
+            return baos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new byte[0]; // возвращаем пустой массив в случае ошибки
         }
     }
 
@@ -56,6 +81,7 @@ public class BaseTest {
      * Проверка всплывающего окна
      * @param expectedText текст, который должен содержаться в алерте
      */
+    @Step("Проверка алерта")
     public void checkAlert(String expectedText) {
         try {
             Alert alert = webDriverWait.until(ExpectedConditions.alertIsPresent());

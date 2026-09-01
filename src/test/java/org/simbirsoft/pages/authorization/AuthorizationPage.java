@@ -1,5 +1,6 @@
 package org.simbirsoft.pages.authorization;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.simbirsoft.helper.ParameterProvider;
 import org.simbirsoft.pages.BasePage;
 
 @Getter
@@ -37,6 +37,7 @@ public class AuthorizationPage extends BasePage {
      * Переход на страницу Logged in
      * @return страница Logged in
      */
+    @Step("Переход на страницу Logged in")
     public LoggedInPage goToLoggedIn() {
         webDriverWait.until(ExpectedConditions.visibilityOf(loginButton)).click();
         return new LoggedInPage(webDriver, webDriverWait);
@@ -47,9 +48,23 @@ public class AuthorizationPage extends BasePage {
      * @param login значение userName
      * @param password значение password
      */
+    @Step("Заполнение полей для авторизации на странице")
     public void auth(String login, String password) {
         sendKeys(username, login);
         sendKeys(this.password, password);
         sendKeys(username2, login);
+    }
+
+    /**
+     * Заполнение полей для авторизации на странице Authorization
+     * @param username значение userName
+     * @param password значение password
+     * @param username2 значение userName2
+     */
+    @Step("Заполнение полей для авторизации на странице")
+    public void auth(String username, String password, String username2) {
+        sendKeys(this.username, username);
+        sendKeys(this.password, password);
+        sendKeys(this.username2, username2);
     }
 }

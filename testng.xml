@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Simbirsoft Way2Automation Suite">
+    <test name="All Tests">
+        <classes>
+            <class name="org.simbirsoft.tests.MainPageTest"/>
+            <class name="org.simbirsoft.tests.AuthorizationTest"/>
+            <class name="org.simbirsoft.tests.CustomerTest"/>
+        </classes>
+    </test>
+</suite>

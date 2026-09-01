@@ -1,5 +1,6 @@
 package org.simbirsoft.pages.bankingApp;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -34,6 +35,7 @@ public class TransactionsPage extends BasePage {
     /**
      * Возвращение на страницу Banking App
      */
+    @Step("Возвращение на страницу Banking App")
     public void returnBankingApp() {
         homeButton.click();
         new BankingAppPage(webDriver, webDriverWait);
@@ -42,6 +44,7 @@ public class TransactionsPage extends BasePage {
     /**
      * Очистка списка транзакций
      */
+    @Step("Очистка списка транзакций")
     public void clickResetButton() {
         resetButton.click();
     }
@@ -50,6 +53,7 @@ public class TransactionsPage extends BasePage {
      * Возвращение на страницу Customer
      * @return страница Customer
      */
+    @Step("Возвращение на страницу Customer")
     public CustomerPage returnCustomerPage() {
         waitHelper.waitForClickable(backButton).click();
         return new CustomerPage(webDriver, webDriverWait);
@@ -60,6 +64,7 @@ public class TransactionsPage extends BasePage {
      * @param rows список транзакций на странице
      * @return список сумм всех поступлений в списке транзакций
      */
+    @Step("Получение списка сумм всех поступлений в списке транзакций")
     public List<String> getActualAmountsCredit(List<WebElement> rows) {
         List<String> actualAmounts = rows.stream()
                 .filter(webElement -> webElement.findElement((By.xpath("./td[3]"))).getText().equals("Credit"))
@@ -73,6 +78,7 @@ public class TransactionsPage extends BasePage {
      * @param rows список транзакций на странице
      * @return список сумм всех снятий в списке транзакций
      */
+    @Step("Получение списка сумм всех снятий в списке транзакций")
     public List<String> getActualAmountsDebit(List<WebElement> rows) {
         List<String> actualAmounts = rows.stream()
                 .filter(webElement -> webElement.findElement((By.xpath("./td[3]"))).getText().equals("Debit"))

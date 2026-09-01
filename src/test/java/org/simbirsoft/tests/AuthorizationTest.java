@@ -1,5 +1,6 @@
 package org.simbirsoft.tests;
 
+import io.qameta.allure.*;
 import org.simbirsoft.helper.ParameterProvider;
 import org.simbirsoft.pages.authorization.AuthorizationPage;
 import org.simbirsoft.pages.authorization.LoggedInPage;
@@ -9,6 +10,8 @@ import org.testng.asserts.SoftAssert;
 
 import static org.testng.Assert.assertEquals;
 
+@Epic("Страница авторизации сайта")
+@Feature("Проверка авторизации")
 public class AuthorizationTest extends BaseTest {
 
     @BeforeMethod
@@ -17,6 +20,8 @@ public class AuthorizationTest extends BaseTest {
     }
 
     @Test(description = "Проверка полей ввода")
+    @Story("Проверка полей ввода")
+    @Severity(SeverityLevel.NORMAL)
     void checkFieldsAuthorizationTest() {
         AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
 
@@ -30,6 +35,8 @@ public class AuthorizationTest extends BaseTest {
     }
 
     @Test(description = "Проверка успешной авторизации")
+    @Story("Сценарии авторизации")
+    @Severity(SeverityLevel.CRITICAL)
     void checkSuccessfulAuthorizationTest() {
         AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
 
@@ -47,6 +54,8 @@ public class AuthorizationTest extends BaseTest {
     }
 
     @Test(description = "Проверка ошибки авторизации")
+    @Story("Сценарии авторизации")
+    @Severity(SeverityLevel.NORMAL)
     void checkExceptionAuthorizationTest() {
         AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
 
@@ -54,7 +63,7 @@ public class AuthorizationTest extends BaseTest {
         String incorrectPassword = "incorrectpassword";
 
         //Заполнение формы авторизации
-        authorizationPage.getWaitHelper().waitForVisibility(authorizationPage.getUsername());
+        waitHelper.waitForVisibility(authorizationPage.getUsername());
 
         authorizationPage.auth(incorrectUserName, incorrectPassword);
 
@@ -67,6 +76,8 @@ public class AuthorizationTest extends BaseTest {
     }
 
     @Test(description = "Проверка успешного разлогирования")
+    @Story("Сценарии авторизации")
+    @Severity(SeverityLevel.CRITICAL)
     void checkLogoutTest() {
         AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
 

@@ -1,5 +1,6 @@
 package org.simbirsoft.pages.bankingApp;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -57,6 +58,7 @@ public class CustomerPage extends BasePage {
     /**
      * Выбор раздела Депозит
      */
+    @Step("Выбор раздела Депозит")
     public void goToDeposit() {
         deposit.click();
     }
@@ -64,6 +66,7 @@ public class CustomerPage extends BasePage {
     /**
      * Подтверждение депозита
      */
+    @Step("Подтверждение депозита")
     public void clickDepositAmount() {
         depositButton.click();
     }
@@ -72,6 +75,7 @@ public class CustomerPage extends BasePage {
      * Переход в раздел Транзакции
      * @return страница Транзакции
      */
+    @Step("Переход в раздел Транзакции")
     public TransactionsPage goToTransactions() {
         transactionButton.click();
         return new TransactionsPage(webDriver, webDriverWait);
@@ -80,6 +84,7 @@ public class CustomerPage extends BasePage {
     /**
      * Выбор раздела Вывод средст
      */
+    @Step("Выбор раздела Вывод средст")
     public void goToWithdrawl() {
         withdrawl.click();
     }
@@ -89,6 +94,7 @@ public class CustomerPage extends BasePage {
      * @param balance баланс покупателя
      * @return случайное число
      */
+    @Step("Получение случайного числа в диапозоне от 1 до баланса покупателя")
     public String getRandomAmount(Integer balance) {
         Random random = new Random();
         Integer randomAmount = random.nextInt(1, balance);
@@ -98,6 +104,7 @@ public class CustomerPage extends BasePage {
     /**
      * Потверждение вывода средств
      */
+    @Step("Потверждение вывода средств")
     public void clickWithdrawButton() {
         withdrawButton.click();
     }
@@ -105,6 +112,7 @@ public class CustomerPage extends BasePage {
     /**
      * Возвращение на страницу Banking App
      */
+    @Step("Возвращение на страницу Banking App")
     public void returnBankingApp() {
         homeButton.click();
         new BankingAppPage(webDriver, webDriverWait);
@@ -114,6 +122,7 @@ public class CustomerPage extends BasePage {
      * Пополнение счета покупателя
      * @param inputAmount сумма пополнения
      */
+    @Step("Пополнение счета покупателя")
     public void addDepositCustomer(String inputAmount) {
         goToDeposit();
 
@@ -126,6 +135,7 @@ public class CustomerPage extends BasePage {
      * Снятие средств со счета покупателя
      * @param randomAmount сумма снятия
      */
+    @Step("Снятие средств со счета покупателя")
     public void withDrawAmountCustomer(String randomAmount) {
         goToWithdrawl();
 

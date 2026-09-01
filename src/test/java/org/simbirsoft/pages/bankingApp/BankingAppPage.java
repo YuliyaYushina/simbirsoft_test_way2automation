@@ -1,5 +1,6 @@
 package org.simbirsoft.pages.bankingApp;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,6 +30,7 @@ public class BankingAppPage extends BasePage {
      * Переход в раздел Sample Form
      * @return страница Sample Form
      */
+    @Step("Переход в раздел Sample Form")
     public SampleFormPage goToSampleForm() {
         waitHelper.waitForClickable(sampleForm).click();
         return new SampleFormPage(webDriver, webDriverWait);
@@ -38,6 +40,7 @@ public class BankingAppPage extends BasePage {
      * Переход в раздел Bank Manager Login
      * @return страница Bank Manager Login
      */
+    @Step("Переход в раздел Bank Manager Login")
     public BankManagerLoginPage goToBankManagerLogin() {
         waitHelper.waitForClickable(bankManagerLogin).click();
         return new BankManagerLoginPage(webDriver, webDriverWait);
@@ -47,6 +50,7 @@ public class BankingAppPage extends BasePage {
      * Переход в раздел Customer Login
      * @return страница Customer Login
      */
+    @Step("Переход в раздел Customer Login")
     public CustomerLoginPage goToCustomerLogin() {
         waitHelper.waitForClickable(customerLogin).click();
         return new CustomerLoginPage(webDriver, webDriverWait);

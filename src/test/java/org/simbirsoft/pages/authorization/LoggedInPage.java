@@ -1,5 +1,6 @@
 package org.simbirsoft.pages.authorization;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,6 +28,7 @@ public class LoggedInPage extends BasePage {
      * Переход на страницу Authorization (разлогинивание)
      * @return страница Authorization
      */
+    @Step("ереход на страницу Authorization (разлогинивание)")
     public AuthorizationPage clickLogout() {
         webDriverWait.until(ExpectedConditions.visibilityOf(logout)).click();
         return new AuthorizationPage(webDriver, webDriverWait);

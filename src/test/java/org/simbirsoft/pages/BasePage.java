@@ -1,10 +1,10 @@
 package org.simbirsoft.pages;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.simbirsoft.helper.WaitHelper;
 
@@ -24,6 +24,7 @@ public class BasePage {
      * Метод прокрутки страницы до конкретного элемента
      * @param element элемент страницы
      */
+    @Step("Прокрутка страницы")
     public void scrollToElement(WebElement element) {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].scrollIntoView(false);", element);
     }
@@ -31,6 +32,7 @@ public class BasePage {
     /**
      * Метод прокрутки в самый низ страницы
      */
+    @Step("Прокрутка страницы вниз")
     public void scrollToBottom() {
         ((JavascriptExecutor) webDriver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
     }
@@ -40,6 +42,7 @@ public class BasePage {
      * @param element элемент страницы
      * @return true - если элемент отображается; false - если элемент не найден
      */
+    @Step("Отбражение элемента")
     public boolean checkDisplayed(WebElement element) {
         return waitHelper.waitForVisibility(element).isDisplayed();
     }
@@ -49,9 +52,9 @@ public class BasePage {
      * @param string значение для заполнения
      * @param element поле
      */
-    public void sendKeys( WebElement element, String string) {
+    @Step("Ввод текста: '{string}")
+    public void sendKeys(WebElement element, String string) {
         element.clear();
         element.sendKeys(string);
     }
-
 }
