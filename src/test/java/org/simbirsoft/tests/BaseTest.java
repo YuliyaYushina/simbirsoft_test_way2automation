@@ -1,16 +1,13 @@
 package org.simbirsoft.tests;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.simbirsoft.helper.DriverFactory;
 import org.simbirsoft.helper.ParameterProvider;
 import org.simbirsoft.helper.WaitHelper;
 import org.testng.Assert;
@@ -24,11 +21,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.testng.Assert.assertTrue;
 
@@ -43,28 +36,17 @@ public class BaseTest {
 
     @BeforeMethod
     protected void initializeDriver() {
-        WebDriverManager.chromedriver().setup();
-
-        ChromeOptions options = new ChromeOptions();
-        Map<String, Object> prefs = new HashMap<>();
-
-        prefs.put("credentials_enable_service", false);
-        prefs.put("password_manager_enabled", false);
-        prefs.put("profile.password_manager_leak_detection", false);
-        prefs.put("safebrowsing.enabled", false);
-        options.setExperimentalOption("prefs", prefs);
+        String browser = ParameterProvider.get("browser");
+        if (browser == null) {
+            browser = "chrome";
+        }
 
         boolean runOnGrid = Boolean.parseBoolean(ParameterProvider.get("run.grid"));
+        String gridUrl = "http://localhost:4444"; // можно вынести в ParameterProvider
 
-        if (runOnGrid) {
-            try {
-                driverThread.set(new RemoteWebDriver(new URL("http://localhost:4444"), options));
-            } catch (MalformedURLException e) {
-                throw new RuntimeException("Некорректный URL хаба Selenium Grid!", e);
-            }
-        } else {
-            driverThread.set(new ChromeDriver(options));
-        }
+        WebDriver driver = DriverFactory.createInstance(browser, runOnGrid, gridUrl);
+
+        driverThread.set(driver);
 
         webDriverWait = new WebDriverWait(getDriver(),
                 Duration.ofSeconds(Long.parseLong(ParameterProvider.get("explicit.wait.time"))));
