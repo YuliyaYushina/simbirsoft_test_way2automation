@@ -57,4 +57,36 @@ public class BasePage {
         element.clear();
         element.sendKeys(string);
     }
+
+    /**
+     * Убирание фокуса (blur) с элемента страницы
+     * @param element элемент страницы
+     */
+    @Step("Убрать фокус с элемента")
+    public void removeFocus(WebElement element) {
+        ((JavascriptExecutor) webDriver).executeScript("arguments[0].blur();", element);
+    }
+
+    /**
+     * Определение наличия вертикального скролла на странице
+     * @return true - если скролл присутствует; false - если страница помещается на одном экране
+     */
+    @Step("Определение наличия вертикального скролла на странице")
+    public boolean isVerticalScrollPresent() {
+        return (Boolean) ((JavascriptExecutor) webDriver).executeScript(
+                "return document.documentElement.scrollHeight > document.documentElement.clientHeight;"
+        );
+    }
+
+    /**
+     * Проверка, находится ли конкретный элемент в фокусе на данный момент
+     * @param element элемент для проверки
+     * @return true - если фокус на элементе; false - если элемент не активен
+     */
+    @Step("Проверка, находится ли элемент в фокусе")
+    public boolean isElementFocused(WebElement element) {
+        return (Boolean) ((JavascriptExecutor) webDriver).executeScript(
+                "return document.activeElement === arguments[0];", element
+        );
+    }
 }
