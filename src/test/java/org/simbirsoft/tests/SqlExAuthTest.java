@@ -17,17 +17,17 @@ public class SqlExAuthTest extends BaseTest {
 
     @BeforeMethod
     public void openUrl() {
-        webDriver.get(ParameterProvider.get("sql.url"));
+        getDriver().get(ParameterProvider.get("sql.url"));
     }
 
     @Test(description = "Проверка авторизации через cookie (два прогона)")
     @Story("Сценарии авторизации")
     @Severity(SeverityLevel.CRITICAL)
     void checkAuthWithCookieTest() {
-        SqlExPage sqlExPage = new SqlExPage(webDriver, webDriverWait);
+        SqlExPage sqlExPage = new SqlExPage(getDriver(), webDriverWait);
 
         //Загрузка сохраненных куков
-        CookieHelper.loadCookiesAndRefresh(webDriver, COOKIES_FILE);
+        CookieHelper.loadCookiesAndRefresh(getDriver(), COOKIES_FILE);
 
         //Авторизация, если отсутсвует сохраненные куки и сохранение куков
         String login = ParameterProvider.get("login.sql");

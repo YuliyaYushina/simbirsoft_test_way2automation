@@ -15,7 +15,7 @@ import static org.testng.Assert.assertEquals;
 public class ParameterizedAuthorizationTest extends BaseTest {
     @BeforeMethod
     public void openUrl() {
-        webDriver.get(ParameterProvider.get("authorization.url"));
+        getDriver().get(ParameterProvider.get("authorization.url"));
     }
 
     @DataProvider(name = "authSuccessDataProvider")
@@ -50,7 +50,7 @@ public class ParameterizedAuthorizationTest extends BaseTest {
     @Story("Проверка авторизации")
     @Severity(SeverityLevel.CRITICAL)
     void authSuccessTest(String username, String password, String username2, String expectedMessage) {
-        AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
+        AuthorizationPage authorizationPage = new AuthorizationPage(getDriver(), webDriverWait);
         waitHelper.waitForVisibility(authorizationPage.getUsername());
         authorizationPage.auth(username, password, username2);
 
@@ -64,7 +64,7 @@ public class ParameterizedAuthorizationTest extends BaseTest {
     @Story("Проверка авторизации")
     @Severity(SeverityLevel.CRITICAL)
     void authErrorTest(String username, String password, String username2, String expectedMessage) {
-        AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
+        AuthorizationPage authorizationPage = new AuthorizationPage(getDriver(), webDriverWait);
         waitHelper.waitForVisibility(authorizationPage.getUsername());
         authorizationPage.auth(username, password, username2);
 

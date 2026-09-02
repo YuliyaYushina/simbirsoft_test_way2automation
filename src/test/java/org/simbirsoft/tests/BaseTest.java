@@ -8,6 +8,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.simbirsoft.helper.ParameterProvider;
@@ -23,6 +24,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,9 +33,13 @@ import java.util.Map;
 import static org.testng.Assert.assertTrue;
 
 public class BaseTest {
-    protected WebDriver webDriver;
+    protected static ThreadLocal<WebDriver> driverThread = new ThreadLocal<>();
     protected WebDriverWait webDriverWait;
     protected WaitHelper waitHelper;
+
+    public WebDriver getDriver() {
+        return driverThread.get();
+    }
 
     @BeforeMethod
     protected void initializeDriver() {
@@ -47,14 +54,26 @@ public class BaseTest {
         prefs.put("safebrowsing.enabled", false);
         options.setExperimentalOption("prefs", prefs);
 
-        webDriver = new ChromeDriver(options);
-        webDriverWait = new WebDriverWait(webDriver,
+        boolean runOnGrid = Boolean.parseBoolean(ParameterProvider.get("run.grid"));
+
+        if (runOnGrid) {
+            try {
+                driverThread.set(new RemoteWebDriver(new URL("http://localhost:4444"), options));
+            } catch (MalformedURLException e) {
+                throw new RuntimeException("Некорректный URL хаба Selenium Grid!", e);
+            }
+        } else {
+            driverThread.set(new ChromeDriver(options));
+        }
+
+        webDriverWait = new WebDriverWait(getDriver(),
                 Duration.ofSeconds(Long.parseLong(ParameterProvider.get("explicit.wait.time"))));
         waitHelper = new WaitHelper(webDriverWait);
     }
 
     @AfterMethod
     protected void quitDriver(ITestResult result) {
+        WebDriver webDriver = getDriver();
         if (webDriver != null) {
             if (result.getStatus() == ITestResult.FAILURE) {
                 saveScreenshot();
@@ -65,7 +84,7 @@ public class BaseTest {
 
     @Attachment(value = "Скриншот при падении теста", type = "image/png")
     public byte[] saveScreenshot() {
-        Screenshot screenshot = new AShot().takeScreenshot(webDriver);
+        Screenshot screenshot = new AShot().takeScreenshot(getDriver());
         BufferedImage image = screenshot.getImage();
 
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {

@@ -16,14 +16,14 @@ import java.util.List;
 public class FailedTest extends BaseTest {
     @BeforeMethod
     public void openUrl() {
-        webDriver.get(ParameterProvider.get("base.url"));
+        getDriver().get(ParameterProvider.get("base.url"));
     }
 
     @Test(description = "Проверка отображения основных элементов на главной странице")
     @Story("Падающий тест для демонстрации скриншота")
     @Severity(SeverityLevel.MINOR)
     void failedDisplayedTest() {
-        MainPage mainPage = new MainPage(webDriver, webDriverWait);
+        MainPage mainPage = new MainPage(getDriver(), webDriverWait);
         mainPage.closeFlyer();
 
         //Проверка отображения элементов
@@ -45,7 +45,7 @@ public class FailedTest extends BaseTest {
     @Story("Падающий тест для демонстрации скриншота")
     @Severity(SeverityLevel.MINOR)
     void failedCoursesTest() {
-        MainPage mainPage = new MainPage(webDriver, webDriverWait);
+        MainPage mainPage = new MainPage(getDriver(), webDriverWait);
 
         //Проверка количества курсов в списке
         SoftAssert softAssert = new SoftAssert();

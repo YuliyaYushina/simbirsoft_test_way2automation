@@ -16,22 +16,22 @@ public class JsExecutorTest extends BaseTest {
 
     @BeforeMethod
     public void openUrl() {
-        webDriver.get(ParameterProvider.get("base.url"));
+        getDriver().get(ParameterProvider.get("base.url"));
     }
 
     @Test(description = "Проверка снятия фокуса с элемента и наличия скролла на странице")
     @Story("Сценарий JavaScriptExecutor")
     @Severity(SeverityLevel.NORMAL)
     void checkJavaScriptExecutorTest() {
-        MainPage mainPage = new MainPage(webDriver, webDriverWait);
+        MainPage mainPage = new MainPage(getDriver(), webDriverWait);
         mainPage.closeFlyer();
 
         //Проверка скролла на главной странице
         boolean isScrollOnMain = mainPage.isVerticalScrollPresent();
         assertTrue(isScrollOnMain, "На главной странице отсутствует вертикальный скролл");
 
-        webDriver.get(ParameterProvider.get("authorization.url"));
-        AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
+        getDriver().get(ParameterProvider.get("authorization.url"));
+        AuthorizationPage authorizationPage = new AuthorizationPage(getDriver(), webDriverWait);
 
         //Проверка фокуса элемента на странице авторизации
         waitHelper.waitForVisibility(authorizationPage.getUsername());
