@@ -1,7 +1,6 @@
 package org.simbirsoft.tests;
 
 import io.qameta.allure.*;
-import org.openqa.selenium.WebDriver;
 import org.simbirsoft.helper.ParameterProvider;
 import org.simbirsoft.pages.windows.WindowsPage;
 import org.testng.annotations.BeforeMethod;
