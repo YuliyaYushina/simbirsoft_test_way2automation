@@ -8,6 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.simbirsoft.helper.WaitHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 public class BasePage {
     protected WebDriver webDriver;
@@ -88,5 +91,15 @@ public class BasePage {
         return (Boolean) ((JavascriptExecutor) webDriver).executeScript(
                 "return document.activeElement === arguments[0];", element
         );
+    }
+
+    /**
+     * Переключение на вкладку по индексу
+     * @param index индекс вкладки (начиная с 0)
+     */
+    @Step("Переключение на {index} вкладку")
+    public void goToWindow(int index) {
+        List<String> windowHandles = new ArrayList<>(webDriver.getWindowHandles());
+        webDriver.switchTo().window(windowHandles.get(index));
     }
 }
