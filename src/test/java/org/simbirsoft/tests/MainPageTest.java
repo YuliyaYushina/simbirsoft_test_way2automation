@@ -28,14 +28,14 @@ public class MainPageTest extends BaseTest {
 
     @BeforeMethod
     public void openUrl() {
-        webDriver.get(ParameterProvider.get("base.url"));
+        getDriver().get(ParameterProvider.get("base.url"));
     }
 
     @Test(description = "Проверка открытия страницы и отображения основных элементов")
     @Story("Проверка отображения основных элементов на главной странице")
     @Severity(SeverityLevel.BLOCKER)
     void openMainPageTest() {
-        MainPage mainPage = new MainPage(webDriver, webDriverWait);
+        MainPage mainPage = new MainPage(getDriver(), webDriverWait);
         mainPage.closeFlyer();
 
         //Проверка отображения элементов
@@ -60,7 +60,7 @@ public class MainPageTest extends BaseTest {
     @Story("Проверка отображения основных элементов на главной странице")
     @Severity(SeverityLevel.MINOR)
     void checkContactHeaderTest() {
-        MainPage mainPage = new MainPage(webDriver, webDriverWait);
+        MainPage mainPage = new MainPage(getDriver(), webDriverWait);
         mainPage.closeFlyer();
 
         ContactPage contactPage = mainPage.goToContactHeader();
@@ -83,7 +83,7 @@ public class MainPageTest extends BaseTest {
     @Story("Проверка отображения основных элементов на главной странице")
     @Severity(SeverityLevel.MINOR)
     void checkListCoursesTest() {
-        MainPage mainPage = new MainPage(webDriver, webDriverWait);
+        MainPage mainPage = new MainPage(getDriver(), webDriverWait);
         mainPage.closeFlyer();
 
         mainPage.scrollToElement(mainPage.getFooter());
@@ -125,7 +125,7 @@ public class MainPageTest extends BaseTest {
     @Story("Проверка отображения основных элементов на главной странице")
     @Severity(SeverityLevel.MINOR)
     void checkContactFooterTest() {
-        MainPage mainPage = new MainPage(webDriver, webDriverWait);
+        MainPage mainPage = new MainPage(getDriver(), webDriverWait);
         mainPage.closeFlyer();
 
         mainPage.scrollToElement(mainPage.getFooter());
@@ -149,7 +149,7 @@ public class MainPageTest extends BaseTest {
     @Story("Проверка отображения основных элементов на главной странице")
     @Severity(SeverityLevel.MINOR)
     void checkNavigationAfterScrollTest() {
-        MainPage mainPage = new MainPage(webDriver, webDriverWait);
+        MainPage mainPage = new MainPage(getDriver(), webDriverWait);
         mainPage.closeFlyer();
 
         mainPage.scrollToBottom();
@@ -163,7 +163,7 @@ public class MainPageTest extends BaseTest {
     @Story("Проверка отображения основных элементов на главной странице")
     @Severity(SeverityLevel.NORMAL)
     void checkLifetimeMembershipNavigationTest() {
-        MainPage mainPage = new MainPage(webDriver, webDriverWait);
+        MainPage mainPage = new MainPage(getDriver(), webDriverWait);
         mainPage.closeFlyer();
 
         LifetimeMembershipPage lifetimeMembershipPage = mainPage.goToLifetimeMembershipPage();
@@ -172,7 +172,7 @@ public class MainPageTest extends BaseTest {
 
         //Проверка ссылки на страницу
         SoftAssert softAssert = new SoftAssert();
-        String actualUrl = webDriver.getCurrentUrl();
+        String actualUrl = getDriver().getCurrentUrl();
         final String EXPECTED_URL = "https://www.way2automation.com/lifetime-membership-club/";
         softAssert.assertEquals(actualUrl, EXPECTED_URL, "Адрес не сопадает");
 

@@ -28,14 +28,14 @@ public class CustomerTest extends BaseTest {
 
     @BeforeMethod
     public void openUrl() {
-        webDriver.get(ParameterProvider.get("banking.app.url"));
+        getDriver().get(ParameterProvider.get("banking.app.url"));
     }
 
     @Test(description = "Проверка Sample Form")
     @Story("Управление покупателями")
     @Severity(SeverityLevel.NORMAL)
     void checkSampleFormTest() {
-        BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
+        BankingAppPage bankingAppPage = new BankingAppPage(getDriver(), webDriverWait);
 
         SampleFormPage sampleFormPage = bankingAppPage.goToSampleForm();
         waitHelper.waitForVisibility(sampleFormPage.getFirstName());
@@ -63,7 +63,7 @@ public class CustomerTest extends BaseTest {
     @Story("Управление покупателями")
     @Severity(SeverityLevel.BLOCKER)
     void checkBankManagerLoginTest() {
-        BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
+        BankingAppPage bankingAppPage = new BankingAppPage(getDriver(), webDriverWait);
 
         BankManagerLoginPage bankManagerLoginPage = bankingAppPage.goToBankManagerLogin();
 
@@ -80,7 +80,7 @@ public class CustomerTest extends BaseTest {
     @Story("Управление балансом и транзакциями")
     @Severity(SeverityLevel.CRITICAL)
     void checkSuccessfulDepositTest() throws InterruptedException {
-        BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
+        BankingAppPage bankingAppPage = new BankingAppPage(getDriver(), webDriverWait);
         //Создание покупателя и открытие аккаунта
         BankManagerLoginPage bankManagerLoginPage = bankingAppPage.goToBankManagerLogin();
         bankManagerLoginPage.addCustomer(FIRST_NAME, LAST_NAME, POST_CODE);
@@ -122,7 +122,7 @@ public class CustomerTest extends BaseTest {
     @Story("Управление балансом и транзакциями")
     @Severity(SeverityLevel.NORMAL)
     void checkUnsuccessfulDepositTest() {
-        BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
+        BankingAppPage bankingAppPage = new BankingAppPage(getDriver(), webDriverWait);
         //Создание покупателя и открытие аккаунта
         BankManagerLoginPage bankManagerLoginPage = bankingAppPage.goToBankManagerLogin();
         bankManagerLoginPage.addCustomer(FIRST_NAME, LAST_NAME, POST_CODE);
@@ -165,7 +165,7 @@ public class CustomerTest extends BaseTest {
     @Story("Управление балансом и транзакциями")
     @Severity(SeverityLevel.CRITICAL)
     void checkSuccessfulWithdrawlTest() {
-        BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
+        BankingAppPage bankingAppPage = new BankingAppPage(getDriver(), webDriverWait);
         //Создание покупателя и открытие аккаунта
         BankManagerLoginPage bankManagerLoginPage = bankingAppPage.goToBankManagerLogin();
         bankManagerLoginPage.addCustomer(FIRST_NAME, LAST_NAME, POST_CODE);
@@ -214,7 +214,7 @@ public class CustomerTest extends BaseTest {
     @Story("Управление балансом и транзакциями")
     @Severity(SeverityLevel.NORMAL)
     void checkUnsuccessfulWithdrawlTest() {
-        BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
+        BankingAppPage bankingAppPage = new BankingAppPage(getDriver(), webDriverWait);
         //Создание покупателя и открытие аккаунта
         BankManagerLoginPage bankManagerLoginPage = bankingAppPage.goToBankManagerLogin();
         bankManagerLoginPage.addCustomer(FIRST_NAME, LAST_NAME, POST_CODE);
@@ -242,8 +242,8 @@ public class CustomerTest extends BaseTest {
 
         String expectedStatusMessage = "Transaction Failed. You can not withdraw amount more than the balance.";
         String actualStatusMessage = waitHelper.waitForVisibility(customerPage.getStatusMessageForWithdraw()).getText();
-        assertEquals("Текст сообщения об ошибке снятии средств не совпадает",
-                actualStatusMessage, expectedStatusMessage);
+        assertEquals(actualStatusMessage, expectedStatusMessage,
+                "Текст сообщения об ошибке снятии средств не совпадает");
 
         //Ожидание обновления транзакций в списке
         Uninterruptibles.sleepUninterruptibly(1, TimeUnit.SECONDS);
@@ -260,7 +260,7 @@ public class CustomerTest extends BaseTest {
     @Story("Управление балансом и транзакциями")
     @Severity(SeverityLevel.CRITICAL)
     void checkBalanceTest() {
-        BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
+        BankingAppPage bankingAppPage = new BankingAppPage(getDriver(), webDriverWait);
         //Создание покупателя и открытие аккаунта
         BankManagerLoginPage bankManagerLoginPage = bankingAppPage.goToBankManagerLogin();
         bankManagerLoginPage.addCustomer(FIRST_NAME, LAST_NAME, POST_CODE);
@@ -314,7 +314,7 @@ public class CustomerTest extends BaseTest {
     @Story("Управление балансом и транзакциями")
     @Severity(SeverityLevel.NORMAL)
     void checkWithdrawAllBalanceTest() {
-        BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
+        BankingAppPage bankingAppPage = new BankingAppPage(getDriver(), webDriverWait);
         //Создание покупателя и открытие аккаунта
         BankManagerLoginPage bankManagerLoginPage = bankingAppPage.goToBankManagerLogin();
         bankManagerLoginPage.addCustomer(FIRST_NAME, LAST_NAME, POST_CODE);
@@ -362,7 +362,7 @@ public class CustomerTest extends BaseTest {
     @Story("Управление балансом и транзакциями")
     @Severity(SeverityLevel.NORMAL)
     void checkResetListTransactionsTest() {
-        BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
+        BankingAppPage bankingAppPage = new BankingAppPage(getDriver(), webDriverWait);
         //Создание покупателя и открытие аккаунта
         BankManagerLoginPage bankManagerLoginPage = bankingAppPage.goToBankManagerLogin();
         bankManagerLoginPage.addCustomer(FIRST_NAME, LAST_NAME, POST_CODE);
@@ -421,7 +421,7 @@ public class CustomerTest extends BaseTest {
     @Story("Управление покупателями")
     @Severity(SeverityLevel.NORMAL)
     void checkDeleteCustomerTest() {
-        BankingAppPage bankingAppPage = new BankingAppPage(webDriver, webDriverWait);
+        BankingAppPage bankingAppPage = new BankingAppPage(getDriver(), webDriverWait);
         //Создание покупателя и открытие аккаунта
         BankManagerLoginPage bankManagerLoginPage = bankingAppPage.goToBankManagerLogin();
         bankManagerLoginPage.addCustomer(FIRST_NAME, LAST_NAME, POST_CODE);

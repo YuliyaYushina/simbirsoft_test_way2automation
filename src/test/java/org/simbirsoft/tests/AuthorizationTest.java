@@ -16,14 +16,14 @@ public class AuthorizationTest extends BaseTest {
 
     @BeforeMethod
     public void openUrl() {
-        webDriver.get(ParameterProvider.get("authorization.url"));
+        getDriver().get(ParameterProvider.get("authorization.url"));
     }
 
     @Test(description = "Проверка полей ввода")
     @Story("Проверка полей ввода")
     @Severity(SeverityLevel.NORMAL)
     void checkFieldsAuthorizationTest() {
-        AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
+        AuthorizationPage authorizationPage = new AuthorizationPage(getDriver(), webDriverWait);
 
         //Проверка элементов страницы
         SoftAssert softAssert = new SoftAssert();
@@ -38,7 +38,7 @@ public class AuthorizationTest extends BaseTest {
     @Story("Сценарии авторизации")
     @Severity(SeverityLevel.CRITICAL)
     void checkSuccessfulAuthorizationTest() {
-        AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
+        AuthorizationPage authorizationPage = new AuthorizationPage(getDriver(), webDriverWait);
 
         //Заполнение формы авторизации
         waitHelper.waitForVisibility(authorizationPage.getUsername());
@@ -57,7 +57,7 @@ public class AuthorizationTest extends BaseTest {
     @Story("Сценарии авторизации")
     @Severity(SeverityLevel.NORMAL)
     void checkExceptionAuthorizationTest() {
-        AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
+        AuthorizationPage authorizationPage = new AuthorizationPage(getDriver(), webDriverWait);
 
         String incorrectUserName = "incorrectuser";
         String incorrectPassword = "incorrectpassword";
@@ -79,7 +79,7 @@ public class AuthorizationTest extends BaseTest {
     @Story("Сценарии авторизации")
     @Severity(SeverityLevel.CRITICAL)
     void checkLogoutTest() {
-        AuthorizationPage authorizationPage = new AuthorizationPage(webDriver, webDriverWait);
+        AuthorizationPage authorizationPage = new AuthorizationPage(getDriver(), webDriverWait);
 
         //Заполнение формы авторизации
         authorizationPage.getWaitHelper().waitForVisibility(authorizationPage.getUsername());
